@@ -19,13 +19,16 @@ def application(environ, start_response):
     import pprint
     pprint.pprint(environ)
 
+    today = datetime.date.today()
+
+
     response_body = body.format(
         software=environ.get('SERVER_SOFTWARE', default),
-        path="aaaa",
-        month="bbbb",
-        date="cccc",
-        year="dddd",
-        client_ip="eeee"
+        path=environ.get('SCRIPT_NAME'),
+        month=today.strftime('%B'),
+        date=today.day,
+        year=today.year,
+        client_ip=environ.get('REMOTE_ADDR')
     )
     status = '200 OK'
 
